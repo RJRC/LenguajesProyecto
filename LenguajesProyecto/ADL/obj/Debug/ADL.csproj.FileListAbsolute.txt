@@ -1,0 +1,12 @@
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\ADL.dll.config
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\ADL.dll
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\ADL.pdb
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\EntityFramework.dll
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\EntityFramework.xml
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\obj\Debug\ADL.csprojAssemblyReference.cache
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\obj\Debug\ADL.csproj.CoreCompileInputs.cache
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\obj\Debug\ADL.csproj.CopyComplete
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\obj\Debug\ADL.dll
+C:\Users\Rolndo\source\repos\ProyectoLenguajes\ADL\obj\Debug\ADL.pdb

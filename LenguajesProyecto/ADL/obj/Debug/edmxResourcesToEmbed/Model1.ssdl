@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDRestauranteProyectoLenguajesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Administrador">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="ClienteID" />
+    </Key>
+    <Property Name="ClienteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="HabilitadoSN" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoOrden">
+    <Key>
+      <PropertyRef Name="EstadoId" />
+    </Key>
+    <Property Name="EstadoId" Type="tinyint" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistoricoCambioEstadoOrden">
+    <Key>
+      <PropertyRef Name="OrdenID" />
+      <PropertyRef Name="EstadoID" />
+      <PropertyRef Name="Fecha" />
+    </Key>
+    <Property Name="OrdenID" Type="int" Nullable="false" />
+    <Property Name="EstadoID" Type="tinyint" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineaOrden">
+    <Key>
+      <PropertyRef Name="LineaOrdenID" />
+    </Key>
+    <Property Name="LineaOrdenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrdenID" Type="int" Nullable="false" />
+    <Property Name="PlatoID" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="money" Nullable="false" />
+    <Property Name="Cantidad" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orden">
+    <Key>
+      <PropertyRef Name="OrdenID" />
+    </Key>
+    <Property Name="OrdenID" Type="int" Nullable="false" />
+    <Property Name="CorreoElectronicoCliente" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Total" Type="money" Nullable="false" />
+    <Property Name="ClienteID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Party">
+    <Key>
+      <PropertyRef Name="CorreoElectronico" />
+    </Key>
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Contraseña" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PrimerNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SegundoNombre" Type="nvarchar" MaxLength="50" />
+    <Property Name="PrimerApellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="SegundoApellido" Type="nvarchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Plato">
+    <Key>
+      <PropertyRef Name="PlatoID" />
+    </Key>
+    <Property Name="PlatoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Precio" Type="money" Nullable="false" />
+    <Property Name="Fotografia" Type="image" Nullable="false" />
+    <Property Name="HabilitadoSN" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="TiempoPreparacionMinutos" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsuarioCocina">
+    <Key>
+      <PropertyRef Name="UsuarioCocinaID" />
+    </Key>
+    <Property Name="UsuarioCocinaID" Type="int" Nullable="false" />
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Administrador_Party">
+    <End Role="Party" Type="Self.Party" Multiplicity="1" />
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="CorreoElectronico" />
+      </Principal>
+      <Dependent Role="Administrador">
+        <PropertyRef Name="CorreoElectronico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_Party">
+    <End Role="Party" Type="Self.Party" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="CorreoElectronico" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="CorreoElectronico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoricoCambioEstadoOrden_EstadoOrden">
+    <End Role="EstadoOrden" Type="Self.EstadoOrden" Multiplicity="1" />
+    <End Role="HistoricoCambioEstadoOrden" Type="Self.HistoricoCambioEstadoOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoOrden">
+        <PropertyRef Name="EstadoId" />
+      </Principal>
+      <Dependent Role="HistoricoCambioEstadoOrden">
+        <PropertyRef Name="EstadoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoricoCambioEstadoOrden_Orden">
+    <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+    <End Role="HistoricoCambioEstadoOrden" Type="Self.HistoricoCambioEstadoOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orden">
+        <PropertyRef Name="OrdenID" />
+      </Principal>
+      <Dependent Role="HistoricoCambioEstadoOrden">
+        <PropertyRef Name="OrdenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineaOrden_Orden">
+    <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+    <End Role="LineaOrden" Type="Self.LineaOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orden">
+        <PropertyRef Name="OrdenID" />
+      </Principal>
+      <Dependent Role="LineaOrden">
+        <PropertyRef Name="OrdenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LineaOrden_Plato">
+    <End Role="Plato" Type="Self.Plato" Multiplicity="1" />
+    <End Role="LineaOrden" Type="Self.LineaOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Plato">
+        <PropertyRef Name="PlatoID" />
+      </Principal>
+      <Dependent Role="LineaOrden">
+        <PropertyRef Name="PlatoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orden_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ClienteID" />
+      </Principal>
+      <Dependent Role="Orden">
+        <PropertyRef Name="ClienteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioCocina_Party">
+    <End Role="Party" Type="Self.Party" Multiplicity="1" />
+    <End Role="UsuarioCocina" Type="Self.UsuarioCocina" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Party">
+        <PropertyRef Name="CorreoElectronico" />
+      </Principal>
+      <Dependent Role="UsuarioCocina">
+        <PropertyRef Name="CorreoElectronico" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BDRestauranteProyectoLenguajesModelStoreContainer">
+    <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoOrden" EntityType="Self.EstadoOrden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoricoCambioEstadoOrden" EntityType="Self.HistoricoCambioEstadoOrden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LineaOrden" EntityType="Self.LineaOrden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orden" EntityType="Self.Orden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Party" EntityType="Self.Party" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Plato" EntityType="Self.Plato" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsuarioCocina" EntityType="Self.UsuarioCocina" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Administrador_Party" Association="Self.FK_Administrador_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Administrador" EntitySet="Administrador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_Party" Association="Self.FK_Cliente_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoricoCambioEstadoOrden_EstadoOrden" Association="Self.FK_HistoricoCambioEstadoOrden_EstadoOrden">
+      <End Role="EstadoOrden" EntitySet="EstadoOrden" />
+      <End Role="HistoricoCambioEstadoOrden" EntitySet="HistoricoCambioEstadoOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoricoCambioEstadoOrden_Orden" Association="Self.FK_HistoricoCambioEstadoOrden_Orden">
+      <End Role="Orden" EntitySet="Orden" />
+      <End Role="HistoricoCambioEstadoOrden" EntitySet="HistoricoCambioEstadoOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineaOrden_Orden" Association="Self.FK_LineaOrden_Orden">
+      <End Role="Orden" EntitySet="Orden" />
+      <End Role="LineaOrden" EntitySet="LineaOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LineaOrden_Plato" Association="Self.FK_LineaOrden_Plato">
+      <End Role="Plato" EntitySet="Plato" />
+      <End Role="LineaOrden" EntitySet="LineaOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orden_Cliente" Association="Self.FK_Orden_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Orden" EntitySet="Orden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioCocina_Party" Association="Self.FK_UsuarioCocina_Party">
+      <End Role="Party" EntitySet="Party" />
+      <End Role="UsuarioCocina" EntitySet="UsuarioCocina" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
